@@ -1,0 +1,46 @@
+.type-box {
+  display: block;
+  overflow: hidden;
+  width: 1200px;
+  height: 240px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.word-box {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 35px;
+}
+.input-field {
+  opacity: 0;
+  z-index: -999;
+  position: absolute;
+}
+
+.char {
+  display: inline-block;
+}
+
+.correct-char {
+  background-color: rgb(159, 228, 159);
+}
+
+.incorrect-char {
+  background-color: rgb(223, 140, 140);
+}
+
+.current-char {
+  border-left: 2px solid blue;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: rgb(222, 138, 170);
+  }
+}
