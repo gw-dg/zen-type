@@ -8,6 +8,7 @@ const genRandom = (wordList) => {
     max = wordList.length - 1;
   for (let i = 0; i < 50; i++) {
     s.push(wordList[Math.floor(Math.random() * (max - min)) + min]);
+    if (i != 49) s.push("\u00A0");
   }
   return s;
 };
@@ -16,35 +17,46 @@ export default function WordDisplay() {
   const [str, setStr] = useState(genRandom(wordList));
   const [currIdx, setCurrIdx] = useState(0);
   const [currCharIdx, setCurrCharIdx] = useState(0);
-  const [inputText, setInputText] = useState("");
   const [mistakes, setMistakes] = useState(0);
   const [charStatus, setCharStatus] = useState([]);
-
+  const [inputText, setInputText] = useState("");
   const inputRef = useRef(null);
 
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-    setCharStatus(str.map((word) => Array(word.length).fill(null)));
+    setCharStatus(str.map((word) => []));
   }, [str]);
 
   const handleChange = (e) => {
+    if (e.key == "Backspace") {
+    }
     const typedStr = e.target.value;
-    const typedWords = typedStr.split(" ");
-    const lastTypedWord = typedWords[typedWords.length - 1];
-    const typedChar = lastTypedWord[lastTypedWord.length - 1];
+    setInputText(typedStr);
+    const typedChar = typedStr[typedStr.length - 1];
     const expectedChar = str[currIdx]?.[currCharIdx];
 
     setCharStatus((prevStatus) => {
       const newStatus = [...prevStatus];
-      if (!newStatus[currIdx]) newStatus[currIdx] = [];
-      newStatus[currIdx][currCharIdx] =
-        typedChar === expectedChar ? "correct" : "incorrect";
+      if (
+        (expectedChar === "\u00A0" && typedChar === " ") ||
+        typedChar === expectedChar
+      ) {
+        newStatus[currIdx][currCharIdx] = "correct";
+      } else newStatus[currIdx][currCharIdx] = "incorrect";
+
       return newStatus;
     });
-
-    if (typedChar === expectedChar) {
+    console.log(typedChar);
+    if (expectedChar === "\u00A0" && typedChar === " ") {
+      if (currCharIdx + 1 === str[currIdx]?.length) {
+        setCurrCharIdx(0);
+        setCurrIdx((prevIdx) => prevIdx + 1);
+      } else {
+        setCurrCharIdx((prevIdx) => prevIdx + 1);
+      }
+    } else if (typedChar === expectedChar) {
       if (currCharIdx + 1 === str[currIdx]?.length) {
         setCurrCharIdx(0);
         setCurrIdx((prevIdx) => prevIdx + 1);
@@ -60,16 +72,6 @@ export default function WordDisplay() {
         setCurrCharIdx((prevIdx) => prevIdx + 1);
       }
     }
-    setInputText(typedStr);
-  };
-
-  const getWordClass = (wordIndex) => {
-    if (wordIndex >= currIdx) return "";
-    const wordStatus = charStatus[wordIndex];
-    if (wordStatus && wordStatus.every((status) => status === "correct")) {
-      return "typed-word-correct";
-    }
-    return "typed-word-wrong";
   };
 
   return (
@@ -77,7 +79,7 @@ export default function WordDisplay() {
       <div className="type-box">
         <div className="word-box">
           {str.map((word, wordIndex) => (
-            <span key={wordIndex} className={getWordClass(wordIndex)}>
+            <span key={wordIndex}>
               {[...word].map((char, charIndex) => {
                 const isCurrentChar =
                   wordIndex === currIdx && charIndex === currCharIdx;
@@ -92,7 +94,6 @@ export default function WordDisplay() {
                   </span>
                 );
               })}
-              <span className="space">&nbsp;</span>
             </span>
           ))}
           <input
@@ -100,6 +101,7 @@ export default function WordDisplay() {
             className="input-field"
             onChange={handleChange}
             ref={inputRef}
+            value={inputText}
           />
         </div>
       </div>
