@@ -20,6 +20,7 @@ export default function WordDisplay() {
   const [mistakes, setMistakes] = useState(0);
   const [charStatus, setCharStatus] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [testEnd, setTestEnd] = useState(false);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -29,9 +30,38 @@ export default function WordDisplay() {
     setCharStatus(str.map((word) => []));
   }, [str]);
 
-  const handleChange = (e) => {
-    if (e.key == "Backspace") {
+  const handleBackspace = (e) => {
+    if (e.key === "Backspace") {
+      e.preventDefault(); // Prevent default backspace behavior
+
+      if (currIdx === 0 && currCharIdx === 0) {
+        return; // Do nothing if at the very beginning
+      }
+
+      setCharStatus((prevStatus) => {
+        const newStatus = [...prevStatus];
+        if (currCharIdx === 0) {
+          // If at the beginning of a word, move to the previous word
+          newStatus[currIdx - 1][str[currIdx - 1].length - 1] = "";
+        } else {
+          newStatus[currIdx][currCharIdx - 1] = "";
+        }
+        return newStatus;
+      });
+
+      if (currCharIdx === 0) {
+        // Move to the end of the previous word
+        setCurrIdx((prevIdx) => prevIdx - 1);
+        setCurrCharIdx(str[currIdx - 1].length - 1);
+      } else {
+        setCurrCharIdx((prevIdx) => prevIdx - 1);
+      }
+
+      // Update input text
+      setInputText((prevText) => prevText.slice(0, -1));
     }
+  };
+  const handleChange = (e) => {
     const typedStr = e.target.value;
     setInputText(typedStr);
     const typedChar = typedStr[typedStr.length - 1];
@@ -48,7 +78,7 @@ export default function WordDisplay() {
 
       return newStatus;
     });
-    console.log(typedChar);
+    // console.log(typedChar);
     if (expectedChar === "\u00A0" && typedChar === " ") {
       if (currCharIdx + 1 === str[currIdx]?.length) {
         setCurrCharIdx(0);
@@ -71,6 +101,9 @@ export default function WordDisplay() {
       } else {
         setCurrCharIdx((prevIdx) => prevIdx + 1);
       }
+    }
+    if (currIdx === str.length - 1 && currCharIdx === str[currIdx].length - 1) {
+      setTestEnd(true);
     }
   };
 
@@ -98,10 +131,12 @@ export default function WordDisplay() {
           ))}
           <input
             type="text"
+            value={inputText}
             className="input-field"
             onChange={handleChange}
+            onKeyDown={handleBackspace}
             ref={inputRef}
-            value={inputText}
+            disabled={testEnd}
           />
         </div>
       </div>
