@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { wordList } from "../App";
 import "./UI.css";
+import Timer from "./Timer";
 
 const genRandom = (wordList) => {
   let s = [];
@@ -18,8 +19,10 @@ export default function WordDisplay() {
   const [currIdx, setCurrIdx] = useState(0);
   const [currCharIdx, setCurrCharIdx] = useState(0);
   const [mistakes, setMistakes] = useState(0);
+  const [wpm, setWpm] = useState(0);
   const [charStatus, setCharStatus] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [isTestStart, setTestStart] = useState(false);
   const [testEnd, setTestEnd] = useState(false);
   const inputRef = useRef(null);
 
@@ -63,6 +66,9 @@ export default function WordDisplay() {
   };
   const handleChange = (e) => {
     const typedStr = e.target.value;
+    if (typedStr.length > 0) {
+      setTestStart(true);
+    }
     setInputText(typedStr);
     const typedChar = typedStr[typedStr.length - 1];
     const expectedChar = str[currIdx]?.[currCharIdx];
@@ -104,12 +110,14 @@ export default function WordDisplay() {
     }
     if (currIdx === str.length - 1 && currCharIdx === str[currIdx].length - 1) {
       setTestEnd(true);
+      // setWpm((wpm) => );
     }
   };
 
   return (
     <div>
       <div className="type-box">
+        {isTestStart ? <Timer isTestStart={isTestStart} /> : <Timer />}
         <div className="word-box">
           {str.map((word, wordIndex) => (
             <span key={wordIndex}>
