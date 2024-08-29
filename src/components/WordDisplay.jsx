@@ -14,7 +14,8 @@ const genRandom = (wordList) => {
   return s;
 };
 
-export default function WordDisplay() {
+export default function WordDisplay({ onInteraction, inputRef }) {
+  //{ testEnd, setTestEnd }) {
   const [str, setStr] = useState(genRandom(wordList));
   const [currIdx, setCurrIdx] = useState(0);
   const [currCharIdx, setCurrCharIdx] = useState(0);
@@ -24,14 +25,13 @@ export default function WordDisplay() {
   const [inputText, setInputText] = useState("");
   const [isTestStart, setTestStart] = useState(false);
   const [testEnd, setTestEnd] = useState(false);
-  const inputRef = useRef(null);
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+    // if (inputRef.current) {
+    //   inputRef.current.focus();
+    // }
     setCharStatus(str.map((word) => []));
-  }, [str]);
+  }, []);
 
   const handleBackspace = (e) => {
     if (e.key === "Backspace") {
@@ -66,6 +66,7 @@ export default function WordDisplay() {
   };
   const handleChange = (e) => {
     const typedStr = e.target.value;
+
     if (typedStr.length > 0) {
       setTestStart(true);
     }
@@ -112,6 +113,7 @@ export default function WordDisplay() {
       setTestEnd(true);
       // setWpm((wpm) => );
     }
+    onInteraction();
   };
 
   return (

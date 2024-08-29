@@ -1,5 +1,6 @@
 import React from "react";
 import WordDisplay from "./components/WordDisplay";
+import Focus from "./components/Focus";
 import "./App.css";
 export const wordList = [
   "ability",
@@ -1960,7 +1961,7 @@ function App() {
   return (
     <div className="display-grid">
       <header></header>
-      <WordDisplay />
+      <Focus />
       <footer></footer>
     </div>
   );

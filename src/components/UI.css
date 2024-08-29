@@ -66,3 +66,16 @@
     border-color: rgb(222, 138, 170);
   }
 }
+
+.modal {
+  display: block;
+  border-style: solid;
+  border-width: 10px;
+  border-color: rgb(235, 211, 241);
+  width: 1200px;
+  height: 240px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  line-height: 200px;
+}
