@@ -33,7 +33,16 @@ export default function WordDisplay({ onInteraction, inputRef }) {
     setCharStatus(str.map((word) => []));
   }, []);
 
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  const handleClick = () => focusInput();
+  window.addEventListener("click", handleClick);
   const handleBackspace = (e) => {
+    handleClick();
     if (e.key === "Backspace") {
       e.preventDefault(); // Prevent default backspace behavior
 
@@ -66,7 +75,7 @@ export default function WordDisplay({ onInteraction, inputRef }) {
   };
   const handleChange = (e) => {
     const typedStr = e.target.value;
-
+    handleClick();
     if (typedStr.length > 0 && isTestStart !== true) {
       setTestStart(true);
     }
