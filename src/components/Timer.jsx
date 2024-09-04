@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
+import genRandom from "../utils/GenRandom";
+import { wordList } from "../App";
 
-export default function Timer({ isTestStart }) {
+export default function Timer({
+  isTestStart,
+  setTestStart,
+  setStr,
+  isTestEnd,
+}) {
   const [duration, setDuration] = useState(15);
 
   useEffect(() => {
@@ -13,20 +20,27 @@ export default function Timer({ isTestStart }) {
         return () => clearInterval(ID);
       }
     }
-  }, [isTestStart]);
+  }, [isTestStart, duration]);
 
+  const handleClick = (dura) => {
+    if (setTestStart) {
+      setTestStart(false);
+      setStr(genRandom(wordList));
+    }
+    setDuration(dura);
+  };
   return (
     <div>
       <div className="mode-bar">
         <span>{duration}</span>
         <div>
-          <button className="duration-button" onClick={() => setDuration(15)}>
+          <button className="duration-button" onClick={() => handleClick(15)}>
             15s
           </button>
-          <button className="duration-button" onClick={() => setDuration(30)}>
+          <button className="duration-button" onClick={() => handleClick(30)}>
             30s
           </button>
-          <button className="duration-button" onClick={() => setDuration(60)}>
+          <button className="duration-button" onClick={() => handleClick(60)}>
             60s
           </button>
         </div>

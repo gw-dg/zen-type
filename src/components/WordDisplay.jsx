@@ -67,7 +67,7 @@ export default function WordDisplay({ onInteraction, inputRef }) {
   const handleChange = (e) => {
     const typedStr = e.target.value;
 
-    if (typedStr.length > 0) {
+    if (typedStr.length > 0 && isTestStart !== true) {
       setTestStart(true);
     }
     setInputText(typedStr);
@@ -119,7 +119,16 @@ export default function WordDisplay({ onInteraction, inputRef }) {
   return (
     <div>
       <div className="type-box">
-        {isTestStart ? <Timer isTestStart={isTestStart} /> : <Timer />}
+        {isTestStart ? (
+          <Timer
+            isTestStart={isTestStart}
+            setTestStart={setTestStart}
+            // str={str}
+            setStr={setStr}
+          />
+        ) : (
+          <Timer />
+        )}
         <div className="word-box">
           {str.map((word, wordIndex) => (
             <span key={wordIndex}>
