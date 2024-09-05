@@ -8,7 +8,7 @@
 }
 
 .mode-bar {
-  /* margin-bottom: 30px; */
+  /* margin-bottom: 20px; */
   border-radius: 2rem;
   background-color: #333333;
   color: #e2dddd;
@@ -40,8 +40,8 @@
   display: flex;
   flex-wrap: wrap;
   font-size: 35px;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  /* padding-top: 2rem; */
+  /* padding-bottom: 2rem; */
 }
 .input-field {
   /* overflow: hidden; */
