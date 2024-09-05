@@ -1,5 +1,7 @@
-import React from "react";
-import WordDisplay from "./components/WordDisplay";
+import React, { useState } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Result from "./components/Result";
 import Focus from "./components/Focus";
 import "./App.css";
 export const wordList = [
@@ -1958,11 +1960,27 @@ export const wordList = [
 ];
 
 function App() {
+  const [wpm, setWpm] = useState(0);
+  const [rawWpm, setRawWpm] = useState(0);
+  const [accuracy, setAccuracy] = useState(0);
+  const [testEnd, setTestEnd] = useState(false);
   return (
     <div className="display-grid">
-      <header></header>
-      <Focus />
-      <footer></footer>
+      <Header />
+      {testEnd ? (
+        <Result rawWpm={rawWpm} wpm={wpm} accuracy={accuracy} />
+      ) : (
+        <Focus
+          rawWpm={rawWpm}
+          setRawWpm={setRawWpm}
+          wpm={wpm}
+          setWpm={setWpm}
+          setAccuracy={setAccuracy}
+          testEnd={testEnd}
+          setTestEnd={setTestEnd}
+        />
+      )}
+      <Footer />
     </div>
   );
 }

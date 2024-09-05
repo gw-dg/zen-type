@@ -40,8 +40,8 @@ export default function Timer({
   return (
     <div>
       <div className="mode-bar">
-        <span>{duration}</span>
-        <div>
+        <span className="duration">{duration}</span>
+        <div className="buttons">
           <button className="duration-button" onClick={() => handleClick(15)}>
             15s
           </button>

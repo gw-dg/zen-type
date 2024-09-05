@@ -8,11 +8,11 @@
 }
 
 .mode-bar {
-  margin-bottom: 20px;
-  border-radius: 10px;
-  background-color: white;
-  color: black;
-  height: 20px;
+  /* margin-bottom: 30px; */
+  border-radius: 2rem;
+  background-color: #333333;
+  color: #e2dddd;
+  height: 30px;
   display: flex;
   justify-content: space-between;
   /* width: 1250px;
@@ -20,17 +20,28 @@
   margin-right: auto; */
 }
 
+.duration {
+  display: flex;
+}
+
+.buttons {
+  display: flex;
+  margin-right: 40px;
+}
 .duration-button {
-  margin-right: 5px;
+  margin-right: 20px;
   border: none;
-  background-color: white;
-  border-color: rgb(231, 231, 159);
+  background-color: #333333;
+  color: #e2dddd;
+  /* border-color: rgb(231, 231, 159); */
 }
 
 .word-box {
   display: flex;
   flex-wrap: wrap;
   font-size: 35px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .input-field {
   /* overflow: hidden; */
@@ -67,16 +78,28 @@
     border-color: rgb(222, 138, 170);
   }
 }
-
 .modal {
-  display: block;
-  border-style: solid;
-  border-width: 10px;
-  border-color: rgb(235, 211, 241);
-  width: 1200px;
-  height: 240px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  line-height: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  backdrop-filter: blur(8px); /* Blur effect on background */
+  background-color: rgba(
+    26,
+    26,
+    26,
+    0.9
+  ); /* Semi-transparent dark background */
+  z-index: 10; /* Ensure it stays above all other elements */
+}
+.modal-text {
+  color: #c2bad2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

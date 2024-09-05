@@ -4,30 +4,27 @@ import { wordList } from "../App";
 import "./UI.css";
 import Timer from "./Timer";
 
-// const genRandom = (wordList) => {
-//   let s = [];
-//   let min = 0,
-//     max = wordList.length - 1;
-//   for (let i = 0; i < 50; i++) {
-//     s.push(wordList[Math.floor(Math.random() * (max - min)) + min]);
-//     if (i != 49) s.push("\u00A0");
-//   }
-//   return s;
-// };
-
-export default function WordDisplay({ inputRef, focusInput }) {
+export default function WordDisplay({
+  inputRef,
+  focusInput,
+  rawWpm,
+  setRawWpm,
+  wpm,
+  setWpm,
+  setAccuracy,
+  testEnd,
+  setTestEnd,
+}) {
   //{ testEnd, setTestEnd }) {
   const [str, setStr] = useState(genRandom(wordList));
   const [currIdx, setCurrIdx] = useState(0);
   const [currCharIdx, setCurrCharIdx] = useState(0);
   const [charTyped, setCharTyped] = useState(0);
   const [mistakes, setMistakes] = useState(0);
-  const [wpm, setWpm] = useState(0);
-  const [rawWpm, setRawWpm] = useState(0);
   const [charStatus, setCharStatus] = useState([]);
   const [inputText, setInputText] = useState("");
   const [isTestStart, setTestStart] = useState(false);
-  const [testEnd, setTestEnd] = useState(false);
+
   const [mode, setMode] = useState(15);
 
   useEffect(() => {
@@ -43,6 +40,7 @@ export default function WordDisplay({ inputRef, focusInput }) {
     let accuracy = (charTyped - mistakes) / charTyped;
     let aWpm = Math.floor(rWpm * accuracy);
     setWpm(aWpm);
+    setAccuracy(accuracy);
   };
 
   const onTimeUp = () => {
@@ -151,6 +149,7 @@ export default function WordDisplay({ inputRef, focusInput }) {
         ) : (
           <Timer />
         )}
+        {/* <div className="empty-space"></div> */}
         <div className="word-box">
           {str.map((word, wordIndex) => (
             <span key={wordIndex}>

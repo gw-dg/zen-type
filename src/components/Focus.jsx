@@ -1,6 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import WordDisplay from "./WordDisplay";
-export default function Focus() {
+import { MousePointer2 } from "lucide-react";
+export default function Focus({
+  rawWpm,
+  setRawWpm,
+  wpm,
+  setWpm,
+  setAccuracy,
+  testEnd,
+  setTestEnd,
+}) {
   const inputRef = useRef(null);
   const [isTestActive, setTestActive] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -30,9 +39,38 @@ export default function Focus() {
   return (
     <div>
       {showModal ? (
-        <div className="modal">PRESS ANY KEY TO FOCUS</div>
+        <>
+          <div className="modal">
+            <h1 className="modal-text">
+              <MousePointer2 />
+              {"\u00A0"}
+              <p> Click here to focus</p>
+            </h1>
+          </div>
+          <WordDisplay
+            inputRef={inputRef}
+            focusInput={focusInput}
+            rawWpm={rawWpm}
+            setRawWpm={setRawWpm}
+            wpm={wpm}
+            setWpm={setWpm}
+            setAccuracy={setAccuracy}
+            testEnd={testEnd}
+            setTestEnd={setTestEnd}
+          />
+        </>
       ) : (
-        <WordDisplay inputRef={inputRef} focusInput={focusInput} />
+        <WordDisplay
+          inputRef={inputRef}
+          focusInput={focusInput}
+          rawWpm={rawWpm}
+          setRawWpm={setRawWpm}
+          wpm={wpm}
+          setWpm={setWpm}
+          setAccuracy={setAccuracy}
+          testEnd={testEnd}
+          setTestEnd={setTestEnd}
+        />
       )}
     </div>
   );

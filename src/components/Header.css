@@ -1,0 +1,64 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px; /* Increased padding */
+  padding-bottom: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Slightly increased gap */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Slightly increased gap */
+  text-decoration: none;
+  color: #c2bad2;
+}
+
+.logo-text {
+  font-size: 1.5rem; /* Increased font size */
+  font-weight: 500;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Slightly increased gap */
+}
+
+.icon-link {
+  padding: 10px; /* Increased padding */
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  color: #c2bad2;
+}
+
+.icon-link:hover {
+  background-color: #2a2436;
+}
+
+.icon {
+  width: 28px; /* Increased icon size */
+  height: 28px; /* Increased icon size */
+}
+
+/* The rest of the CSS remains unchanged */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
