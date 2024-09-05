@@ -14,13 +14,15 @@ export default function WordDisplay({
   setAccuracy,
   testEnd,
   setTestEnd,
+  charTyped,
+  setCharTyped,
+  mistakes,
+  setMistakes,
 }) {
   //{ testEnd, setTestEnd }) {
   const [str, setStr] = useState(genRandom(wordList));
   const [currIdx, setCurrIdx] = useState(0);
   const [currCharIdx, setCurrCharIdx] = useState(0);
-  const [charTyped, setCharTyped] = useState(0);
-  const [mistakes, setMistakes] = useState(0);
   const [charStatus, setCharStatus] = useState([]);
   const [inputText, setInputText] = useState("");
   const [isTestStart, setTestStart] = useState(false);
@@ -180,12 +182,12 @@ export default function WordDisplay({
           />
         </div>
       </div>
-      <div className="stats">
+      {/* <div className="stats">
         <p>Mistakes: {mistakes}</p>
         <p>Characters Typed: {charTyped}</p>
         <p>WPM: {wpm}</p>
         <p>Raw WPM: {rawWpm}</p>
-      </div>
+      </div> */}
     </div>
   );
 }

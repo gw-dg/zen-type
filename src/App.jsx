@@ -1963,6 +1963,8 @@ function App() {
   const [wpm, setWpm] = useState(0);
   const [rawWpm, setRawWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
+  const [charTyped, setCharTyped] = useState(0);
+  const [mistakes, setMistakes] = useState(0);
   const [testEnd, setTestEnd] = useState(false);
   return (
     <div className="display-grid">
@@ -1978,6 +1980,10 @@ function App() {
           setAccuracy={setAccuracy}
           testEnd={testEnd}
           setTestEnd={setTestEnd}
+          charTyped={charTyped}
+          setCharTyped={setCharTyped}
+          mistakes={mistakes}
+          setMistakes={setMistakes}
         />
       )}
       <Footer />
