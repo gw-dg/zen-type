@@ -20,12 +20,15 @@ export default function WordDisplay({ inputRef, focusInput }) {
   const [str, setStr] = useState(genRandom(wordList));
   const [currIdx, setCurrIdx] = useState(0);
   const [currCharIdx, setCurrCharIdx] = useState(0);
+  const [charTyped, setCharTyped] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [wpm, setWpm] = useState(0);
+  const [rawWpm, setRawWpm] = useState(0);
   const [charStatus, setCharStatus] = useState([]);
   const [inputText, setInputText] = useState("");
   const [isTestStart, setTestStart] = useState(false);
   const [testEnd, setTestEnd] = useState(false);
+  const [mode, setMode] = useState(15);
 
   useEffect(() => {
     // if (inputRef.current) {
@@ -34,9 +37,15 @@ export default function WordDisplay({ inputRef, focusInput }) {
     setCharStatus(str.map((word) => []));
   }, []);
 
-  const calcWpm = () => {};
+  const calcWpm = () => {
+    let rWpm = charTyped / 5 / (mode / 60);
+    setRawWpm(rWpm);
+    let accuracy = (charTyped - mistakes) / charTyped;
+    let aWpm = Math.floor(rWpm * accuracy);
+    setWpm(aWpm);
+  };
 
-  const onClick = () => {
+  const onTimeUp = () => {
     calcWpm();
   };
 
@@ -119,6 +128,7 @@ export default function WordDisplay({ inputRef, focusInput }) {
         setCurrCharIdx((prevIdx) => prevIdx + 1);
       }
     }
+    setCharTyped((charTyped) => charTyped + 1);
     if (currIdx === str.length - 1 && currCharIdx === str[currIdx].length - 1) {
       setTestEnd(true);
       // setWpm((wpm) => );
@@ -135,6 +145,8 @@ export default function WordDisplay({ inputRef, focusInput }) {
             // str={str}
             setStr={setStr}
             setTestEnd={setTestEnd}
+            setMode={setMode}
+            onTimeUp={onTimeUp}
           />
         ) : (
           <Timer />
@@ -171,6 +183,9 @@ export default function WordDisplay({ inputRef, focusInput }) {
       </div>
       <div className="stats">
         <p>Mistakes: {mistakes}</p>
+        <p>Characters Typed: {charTyped}</p>
+        <p>WPM: {wpm}</p>
+        <p>Raw WPM: {rawWpm}</p>
       </div>
     </div>
   );

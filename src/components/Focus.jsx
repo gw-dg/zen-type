@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import WordDisplay from "./WordDisplay";
 export default function Focus() {
   const inputRef = useRef(null);
@@ -12,6 +12,9 @@ export default function Focus() {
       inputRef.current.focus();
     }
   };
+  useEffect(() => {
+    focusInput();
+  }, []);
   const handleBlur = () => {
     setShowModal(true);
     setTestActive(false);

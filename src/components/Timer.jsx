@@ -7,9 +7,11 @@ export default function Timer({
   setTestStart,
   setStr,
   setTestEnd,
+  setMode,
   onTimeUp,
 }) {
   const [duration, setDuration] = useState(15);
+  // const [mode, setMode] = useState(15);
 
   useEffect(() => {
     if (isTestStart) {
@@ -33,6 +35,7 @@ export default function Timer({
       setStr(genRandom(wordList));
     }
     setDuration(dura);
+    setMode(dura);
   };
   return (
     <div>
