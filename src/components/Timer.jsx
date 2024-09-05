@@ -6,7 +6,8 @@ export default function Timer({
   isTestStart,
   setTestStart,
   setStr,
-  isTestEnd,
+  setTestEnd,
+  onTimeUp,
 }) {
   const [duration, setDuration] = useState(15);
 
@@ -18,6 +19,10 @@ export default function Timer({
           1000
         );
         return () => clearInterval(ID);
+      } else {
+        setTestStart(false);
+        setTestEnd(true);
+        if (onTimeUp) onTimeUp();
       }
     }
   }, [isTestStart, duration]);

@@ -1,20 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
+import genRandom from "../utils/GenRandom";
 import { wordList } from "../App";
 import "./UI.css";
 import Timer from "./Timer";
 
-const genRandom = (wordList) => {
-  let s = [];
-  let min = 0,
-    max = wordList.length - 1;
-  for (let i = 0; i < 50; i++) {
-    s.push(wordList[Math.floor(Math.random() * (max - min)) + min]);
-    if (i != 49) s.push("\u00A0");
-  }
-  return s;
-};
+// const genRandom = (wordList) => {
+//   let s = [];
+//   let min = 0,
+//     max = wordList.length - 1;
+//   for (let i = 0; i < 50; i++) {
+//     s.push(wordList[Math.floor(Math.random() * (max - min)) + min]);
+//     if (i != 49) s.push("\u00A0");
+//   }
+//   return s;
+// };
 
-export default function WordDisplay({ onInteraction, inputRef }) {
+export default function WordDisplay({ inputRef, focusInput }) {
   //{ testEnd, setTestEnd }) {
   const [str, setStr] = useState(genRandom(wordList));
   const [currIdx, setCurrIdx] = useState(0);
@@ -33,10 +34,10 @@ export default function WordDisplay({ onInteraction, inputRef }) {
     setCharStatus(str.map((word) => []));
   }, []);
 
-  const focusInput = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+  const calcWpm = () => {};
+
+  const onClick = () => {
+    calcWpm();
   };
 
   const handleClick = () => focusInput();
@@ -122,7 +123,6 @@ export default function WordDisplay({ onInteraction, inputRef }) {
       setTestEnd(true);
       // setWpm((wpm) => );
     }
-    onInteraction();
   };
 
   return (
@@ -134,6 +134,7 @@ export default function WordDisplay({ onInteraction, inputRef }) {
             setTestStart={setTestStart}
             // str={str}
             setStr={setStr}
+            setTestEnd={setTestEnd}
           />
         ) : (
           <Timer />
