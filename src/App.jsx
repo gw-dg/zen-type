@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Result from "./components/Result";
 import Focus from "./components/Focus";
 import "./App.css";
+import Retest from "./components/Retest";
 export const wordList = [
   "ability",
   "able",
@@ -1986,6 +1987,7 @@ function App() {
           setMistakes={setMistakes}
         />
       )}
+
       <Footer />
     </div>
   );

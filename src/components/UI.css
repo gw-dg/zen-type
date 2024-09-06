@@ -2,38 +2,47 @@
   display: block;
   overflow: hidden;
   width: 1200px;
-  height: 240px;
+  height: 400px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .mode-bar {
-  /* margin-bottom: 20px; */
-  border-radius: 2rem;
-  background-color: #333333;
-  color: #e2dddd;
-  height: 30px;
+  align-self: start;
+  width: 1200px;
   display: flex;
   justify-content: space-between;
-  /* width: 1250px;
-  margin-left: auto;
-  margin-right: auto; */
+  align-items: center;
+  padding: 0 10px; /* Adds padding on the left and right */
+  /* margin: 20px; Optional, adds margin around the bar */
+  margin-bottom: 20px;
+  background-color: #333333;
+  color: #e2dddd;
+  border-radius: 20px;
 }
 
 .duration {
-  display: flex;
+  margin-left: 0; /* Aligns the duration to the left */
+  font-size: 16px; /* You can adjust the font size */
 }
 
 .buttons {
   display: flex;
-  margin-right: 40px;
+  gap: 10px; /* Adds space between buttons */
+  margin-right: 10px; /* Adds margin from the right end */
 }
+
 .duration-button {
-  margin-right: 20px;
-  border: none;
+  padding: 8px 16px; /* Adds padding inside buttons */
+  font-size: 14px; /* Adjust font size */
+  cursor: pointer; /* Adds pointer cursor on hover */
+  border: none; /* Optional: Adds rounded corners */
   background-color: #333333;
   color: #e2dddd;
-  /* border-color: rgb(231, 231, 159); */
+}
+
+.duration-button:hover {
+  color: #f0f0f0;
 }
 
 .word-box {
@@ -104,7 +113,19 @@
   align-items: center;
 }
 
-.Result {
+.result {
   display: flex;
   flex-direction: column;
+}
+
+.result-box {
+  display: flex;
+}
+
+.retest-btn {
+  border: none;
+  background-color: #1a1a1a;
+  color: #c2bad2;
+  height: 100px;
+  width: 100px;
 }

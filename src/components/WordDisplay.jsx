@@ -3,6 +3,7 @@ import genRandom from "../utils/GenRandom";
 import { wordList } from "../App";
 import "./UI.css";
 import Timer from "./Timer";
+import Retest from "./Retest";
 
 export default function WordDisplay({
   inputRef,
@@ -136,58 +137,51 @@ export default function WordDisplay({
   };
 
   return (
-    <div>
-      <div className="type-box">
-        {isTestStart ? (
-          <Timer
-            isTestStart={isTestStart}
-            setTestStart={setTestStart}
-            // str={str}
-            setStr={setStr}
-            setTestEnd={setTestEnd}
-            setMode={setMode}
-            onTimeUp={onTimeUp}
-          />
-        ) : (
-          <Timer />
-        )}
-        {/* <div className="empty-space"></div> */}
-        <div className="word-box">
-          {str.map((word, wordIndex) => (
-            <span key={wordIndex}>
-              {[...word].map((char, charIndex) => {
-                const isCurrentChar =
-                  wordIndex === currIdx && charIndex === currCharIdx;
-                const status = charStatus[wordIndex]?.[charIndex];
-                return (
-                  <span
-                    key={`${wordIndex}-${charIndex}`}
-                    className={`char ${isCurrentChar ? "current-char" : ""} ${
-                      status ? `${status}-char` : ""
-                    }`}>
-                    {char}
-                  </span>
-                );
-              })}
-            </span>
-          ))}
-          <input
-            type="text"
-            value={inputText}
-            className="input-field"
-            onChange={handleChange}
-            onKeyDown={handleBackspace}
-            ref={inputRef}
-            disabled={testEnd}
-          />
-        </div>
+    <div className="type-box">
+      {isTestStart ? (
+        <Timer
+          isTestStart={isTestStart}
+          setTestStart={setTestStart}
+          // str={str}
+          setStr={setStr}
+          setTestEnd={setTestEnd}
+          setMode={setMode}
+          onTimeUp={onTimeUp}
+        />
+      ) : (
+        <Timer />
+      )}
+      {/* <div className="empty-space"></div> */}
+      <div className="word-box">
+        {str.map((word, wordIndex) => (
+          <span key={wordIndex}>
+            {[...word].map((char, charIndex) => {
+              const isCurrentChar =
+                wordIndex === currIdx && charIndex === currCharIdx;
+              const status = charStatus[wordIndex]?.[charIndex];
+              return (
+                <span
+                  key={`${wordIndex}-${charIndex}`}
+                  className={`char ${isCurrentChar ? "current-char" : ""} ${
+                    status ? `${status}-char` : ""
+                  }`}>
+                  {char}
+                </span>
+              );
+            })}
+          </span>
+        ))}
+        <input
+          type="text"
+          value={inputText}
+          className="input-field"
+          onChange={handleChange}
+          onKeyDown={handleBackspace}
+          ref={inputRef}
+          disabled={testEnd}
+        />
       </div>
-      {/* <div className="stats">
-        <p>Mistakes: {mistakes}</p>
-        <p>Characters Typed: {charTyped}</p>
-        <p>WPM: {wpm}</p>
-        <p>Raw WPM: {rawWpm}</p>
-      </div> */}
+      <Retest setStr={setStr} />
     </div>
   );
 }
