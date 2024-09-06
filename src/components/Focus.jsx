@@ -13,6 +13,7 @@ export default function Focus({
   setCharTyped,
   mistakes,
   setMistakes,
+  setData,
 }) {
   const inputRef = useRef(null);
   const [isTestActive, setTestActive] = useState(true);
@@ -65,6 +66,7 @@ export default function Focus({
             setCharTyped={setCharTyped}
             mistakes={mistakes}
             setMistakes={setMistakes}
+            setData={setData}
           />
         </>
       ) : (
@@ -82,6 +84,7 @@ export default function Focus({
           setCharTyped={setCharTyped}
           mistakes={mistakes}
           setMistakes={setMistakes}
+          setData={setData}
         />
       )}
     </div>

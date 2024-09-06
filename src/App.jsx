@@ -1967,11 +1967,19 @@ function App() {
   const [charTyped, setCharTyped] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [testEnd, setTestEnd] = useState(false);
+  const [data, setData] = useState([[], [], []]);
   return (
     <div className="display-grid">
       <Header />
       {testEnd ? (
-        <Result rawWpm={rawWpm} wpm={wpm} accuracy={accuracy} />
+        <Result
+          charTyped={charTyped}
+          mistakes={mistakes}
+          rawWpm={rawWpm}
+          wpm={wpm}
+          accuracy={accuracy}
+          data={data}
+        />
       ) : (
         <Focus
           rawWpm={rawWpm}
@@ -1985,6 +1993,7 @@ function App() {
           setCharTyped={setCharTyped}
           mistakes={mistakes}
           setMistakes={setMistakes}
+          setData={setData}
         />
       )}
 

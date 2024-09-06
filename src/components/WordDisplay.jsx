@@ -3,7 +3,7 @@ import genRandom from "../utils/GenRandom";
 import { wordList } from "../App";
 import "./UI.css";
 import Timer from "./Timer";
-import Retest from "./Retest";
+import { RefreshCcw } from "lucide-react";
 
 export default function WordDisplay({
   inputRef,
@@ -19,6 +19,7 @@ export default function WordDisplay({
   setCharTyped,
   mistakes,
   setMistakes,
+  setData,
 }) {
   //{ testEnd, setTestEnd }) {
   const [str, setStr] = useState(genRandom(wordList));
@@ -27,8 +28,27 @@ export default function WordDisplay({
   const [charStatus, setCharStatus] = useState([]);
   const [inputText, setInputText] = useState("");
   const [isTestStart, setTestStart] = useState(false);
-
   const [mode, setMode] = useState(15);
+  // const [data, setData] = useState([[], [], []]);
+
+  const handleRetest = () => {
+    if (setStr) {
+      setStr(genRandom(wordList));
+      // setCurrCharIdx(0);
+      setCurrIdx(0);
+      setTestStart(false);
+      setMode(mode);
+      // setInputText("");
+      setCharStatus([]);
+      // setCharTyped(0);
+      // setMistakes(0);
+      // setWpm(0);
+      // setRawWpm(0);
+      // setData([], [], []);
+      // setTestEnd(false);
+      // setAccuracy(0);
+    }
+  };
 
   useEffect(() => {
     // if (inputRef.current) {
@@ -36,19 +56,6 @@ export default function WordDisplay({
     // }
     setCharStatus(str.map((word) => []));
   }, []);
-
-  const calcWpm = () => {
-    let rWpm = charTyped / 5 / (mode / 60);
-    setRawWpm(rWpm);
-    let accuracy = (charTyped - mistakes) / charTyped;
-    let aWpm = Math.floor(rWpm * accuracy);
-    setWpm(aWpm);
-    setAccuracy(accuracy);
-  };
-
-  const onTimeUp = () => {
-    calcWpm();
-  };
 
   const handleClick = () => focusInput();
   window.addEventListener("click", handleClick);
@@ -96,12 +103,13 @@ export default function WordDisplay({
 
     setCharStatus((prevStatus) => {
       const newStatus = [...prevStatus];
-      if (
-        (expectedChar === "\u00A0" && typedChar === " ") ||
-        typedChar === expectedChar
-      ) {
-        newStatus[currIdx][currCharIdx] = "correct";
-      } else newStatus[currIdx][currCharIdx] = "incorrect";
+      if (newStatus[currIdx])
+        if (
+          (expectedChar === "\u00A0" && typedChar === " ") ||
+          typedChar === expectedChar
+        ) {
+          newStatus[currIdx][currCharIdx] = "correct";
+        } else newStatus[currIdx][currCharIdx] = "incorrect";
 
       return newStatus;
     });
@@ -145,8 +153,16 @@ export default function WordDisplay({
           // str={str}
           setStr={setStr}
           setTestEnd={setTestEnd}
+          mode={mode}
           setMode={setMode}
-          onTimeUp={onTimeUp}
+          charTyped={charTyped}
+          mistakes={mistakes}
+          wpm={wpm}
+          setWpm={setWpm}
+          rawWpm={rawWpm}
+          setRawWpm={setRawWpm}
+          setAccuracy={setAccuracy}
+          setData={setData}
         />
       ) : (
         <Timer />
@@ -181,7 +197,11 @@ export default function WordDisplay({
           disabled={testEnd}
         />
       </div>
-      <Retest setStr={setStr} />
+      <div>
+        <button className="retest-btn" onClick={() => handleRetest()}>
+          <RefreshCcw className="retest-btn-icon" />
+        </button>
+      </div>
     </div>
   );
 }

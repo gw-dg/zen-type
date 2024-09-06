@@ -7,11 +7,36 @@ export default function Timer({
   setTestStart,
   setStr,
   setTestEnd,
+  mode,
   setMode,
-  onTimeUp,
+  charTyped,
+  mistakes,
+  wpm,
+  setWpm,
+  rawWpm,
+  setRawWpm,
+  setAccuracy,
+  setData,
 }) {
   const [duration, setDuration] = useState(15);
+
   // const [mode, setMode] = useState(15);
+
+  const calcWpm = () => {
+    let minutes = (mode - duration + 1) / 60;
+    let rWpm = charTyped / 5;
+    if (minutes !== 0) rWpm = rWpm / minutes;
+    setRawWpm(rWpm);
+    let accuracy = (charTyped - mistakes) / charTyped;
+    let aWpm = Math.floor(rWpm * accuracy);
+    setWpm(aWpm);
+    setAccuracy(accuracy);
+    setData((prev) => [
+      [...prev[0], mode - duration + 1],
+      [...prev[1], wpm],
+      [...prev[2], rawWpm],
+    ]);
+  };
 
   useEffect(() => {
     if (isTestStart) {
@@ -20,11 +45,11 @@ export default function Timer({
           () => setDuration((duration) => duration - 1),
           1000
         );
+        calcWpm();
         return () => clearInterval(ID);
       } else {
         setTestStart(false);
         setTestEnd(true);
-        if (onTimeUp) onTimeUp();
       }
     }
   }, [isTestStart, duration]);

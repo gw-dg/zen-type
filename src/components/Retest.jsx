@@ -13,7 +13,7 @@ export default function Retest({ setStr }) {
   return (
     <div>
       <button className="retest-btn" onClick={() => handleClick()}>
-        <RefreshCcw />
+        <RefreshCcw className="retest-btn-icon" />
       </button>
     </div>
   );
