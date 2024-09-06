@@ -42,7 +42,7 @@ export default function Focus({
 
   return (
     <div>
-      {showModal ? (
+      {isTestActive && showModal ? (
         <>
           <div className="modal">
             <h1 className="modal-text">
