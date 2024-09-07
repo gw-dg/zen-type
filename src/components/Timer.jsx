@@ -24,6 +24,7 @@ export default function Timer({
 
   const calcWpm = () => {
     let minutes = (mode - duration + 1) / 60;
+    console.log(minutes);
     let rWpm = charTyped / 5;
     if (minutes !== 0) rWpm = rWpm / minutes;
     setRawWpm(rWpm);
@@ -60,7 +61,7 @@ export default function Timer({
       setStr(genRandom(wordList));
     }
     setDuration(dura);
-    setMode(dura);
+    if (setMode) setMode(dura);
   };
   return (
     <div>

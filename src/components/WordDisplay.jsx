@@ -165,7 +165,7 @@ export default function WordDisplay({
           setData={setData}
         />
       ) : (
-        <Timer />
+        <Timer setMode={setMode} />
       )}
       {/* <div className="empty-space"></div> */}
       <div className="word-box">
