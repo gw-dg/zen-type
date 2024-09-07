@@ -20,6 +20,8 @@ export default function WordDisplay({
   mistakes,
   setMistakes,
   setData,
+  resetTrigger,
+  setResetTrigger,
 }) {
   //{ testEnd, setTestEnd }) {
   const [str, setStr] = useState(genRandom(wordList));
@@ -29,33 +31,41 @@ export default function WordDisplay({
   const [inputText, setInputText] = useState("");
   const [isTestStart, setTestStart] = useState(false);
   const [mode, setMode] = useState(15);
+  const [duration, setDuration] = useState(15);
   // const [data, setData] = useState([[], [], []]);
 
   const handleRetest = () => {
-    if (setStr) {
-      setStr(genRandom(wordList));
-      // setCurrCharIdx(0);
-      setCurrIdx(0);
-      setTestStart(false);
-      setMode(mode);
-      // setInputText("");
-      setCharStatus([]);
-      // setCharTyped(0);
-      // setMistakes(0);
-      // setWpm(0);
-      // setRawWpm(0);
-      // setData([], [], []);
-      // setTestEnd(false);
-      // setAccuracy(0);
-    }
+    setResetTrigger((resetTrigger) => resetTrigger + 1);
   };
+
+  useEffect(() => {
+    // if (setStr) {
+    const newStr = genRandom(wordList);
+    // }
+    setStr(newStr);
+    setCurrIdx(0);
+    setCurrCharIdx(0);
+    setInputText("");
+    setTestStart(false);
+    setCharStatus([]);
+    // setCharStatus(newStr.map((word) => []));
+    //------------------------
+    setRawWpm(0);
+    setWpm(0);
+    setAccuracy(0);
+    setTestEnd(false);
+    setCharTyped(0);
+    setMistakes(0);
+    setDuration(mode);
+    setData([[], [], []]);
+  }, [resetTrigger, testEnd]);
 
   useEffect(() => {
     // if (inputRef.current) {
     //   inputRef.current.focus();
     // }
     setCharStatus(str.map((word) => []));
-  }, []);
+  }, [str]);
 
   const handleClick = () => focusInput();
   window.addEventListener("click", handleClick);
@@ -163,9 +173,16 @@ export default function WordDisplay({
           setRawWpm={setRawWpm}
           setAccuracy={setAccuracy}
           setData={setData}
+          duration={duration}
+          setDuration={setDuration}
+          setResetTrigger={setResetTrigger}
         />
       ) : (
-        <Timer setMode={setMode} />
+        <Timer
+          setMode={setMode}
+          duration={duration}
+          setDuration={setDuration}
+        />
       )}
       {/* <div className="empty-space"></div> */}
       <div className="word-box">

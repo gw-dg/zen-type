@@ -23,7 +23,7 @@ ChartJS.register(
 
 export default function Graph({ data }) {
   const [time, wpm, rawWpm] = data;
-  console.log(data);
+  console.log("lol");
   const dat = {
     labels: time,
     datasets: [

@@ -17,14 +17,15 @@ export default function Timer({
   setRawWpm,
   setAccuracy,
   setData,
+  duration,
+  setDuration,
+  setResetTrigger,
 }) {
-  const [duration, setDuration] = useState(15);
-
   // const [mode, setMode] = useState(15);
 
   const calcWpm = () => {
     let minutes = (mode - duration + 1) / 60;
-    console.log(minutes);
+    // console.log(minutes);
     let rWpm = charTyped / 5;
     if (minutes !== 0) rWpm = rWpm / minutes;
     setRawWpm(rWpm);
@@ -56,6 +57,7 @@ export default function Timer({
   }, [isTestStart, duration]);
 
   const handleClick = (dura) => {
+    setResetTrigger((prev) => prev + 1);
     if (setTestStart) {
       setTestStart(false);
       setStr(genRandom(wordList));

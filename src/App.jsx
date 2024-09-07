@@ -4,7 +4,6 @@ import Footer from "./components/Footer";
 import Result from "./components/Result";
 import Focus from "./components/Focus";
 import "./App.css";
-import Retest from "./components/Retest";
 export const wordList = [
   "ability",
   "able",
@@ -1968,17 +1967,30 @@ function App() {
   const [mistakes, setMistakes] = useState(0);
   const [testEnd, setTestEnd] = useState(false);
   const [data, setData] = useState([[], [], []]);
+  const [resetTrigger, setResetTrigger] = useState(0);
+  console.log(testEnd);
+  console.log(resetTrigger);
   return (
     <div className="display-grid">
       <Header />
       {testEnd ? (
         <Result
           charTyped={charTyped}
+          setCharTyped={setCharTyped}
           mistakes={mistakes}
+          setMistakes={setMistakes}
           rawWpm={rawWpm}
+          setRawWpm={setRawWpm}
           wpm={wpm}
+          setWpm={setWpm}
           accuracy={accuracy}
+          setAccuracy={setAccuracy}
+          testEnd={testEnd}
+          setTestEnd={setTestEnd}
           data={data}
+          setData={setData}
+          resetTrigger={resetTrigger}
+          setResetTrigger={setResetTrigger}
         />
       ) : (
         <Focus
@@ -1994,6 +2006,8 @@ function App() {
           mistakes={mistakes}
           setMistakes={setMistakes}
           setData={setData}
+          resetTrigger={resetTrigger}
+          setResetTrigger={setResetTrigger}
         />
       )}
 

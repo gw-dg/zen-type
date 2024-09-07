@@ -1,16 +1,36 @@
 import React from "react";
 import Graph from "./Graph";
 import "./UI.css";
-import Retest from "./Retest";
+import { RefreshCcw } from "lucide-react";
 
 export default function Result({
   charTyped,
+  setCharTyped,
   mistakes,
+  setMistakes,
   rawWpm,
+  setRawWpm,
   wpm,
+  setWpm,
   accuracy,
+  setAccuracy,
+  testEnd,
+  setTestEnd,
   data,
+  setData,
+  resetTrigger,
+  setResetTrigger,
 }) {
+  const handleClick = () => {
+    setCharTyped(0);
+    setMistakes(0);
+    setRawWpm(0);
+    setWpm(0);
+    setAccuracy(0);
+    setData([[], [], []]);
+    setTestEnd(false);
+    setResetTrigger((prev) => prev + 1);
+  };
   return (
     <>
       <div className="result-box">
@@ -26,7 +46,9 @@ export default function Result({
         </div>
         <Graph data={data} />
       </div>
-      <Retest />
+      <button className="retest-result" onClick={() => handleClick()}>
+        <RefreshCcw className="retest-btn-icon" />
+      </button>
     </>
   );
 }

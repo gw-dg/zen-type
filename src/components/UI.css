@@ -142,3 +142,13 @@
   transform: rotate(270deg); /* Rotates the icon on hover */
   cursor: pointer; /* Changes the cursor to indicate it's interactive */
 }
+
+.retest-result {
+  border: none;
+  background-color: #1a1a1a;
+  color: #c2bad2;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+  width: 100px;
+}
