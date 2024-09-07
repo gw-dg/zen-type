@@ -57,13 +57,18 @@ export default function Timer({
   }, [isTestStart, duration]);
 
   const handleClick = (dura) => {
-    setResetTrigger((prev) => prev + 1);
-    if (setTestStart) {
+    if (isTestStart) {
       setTestStart(false);
-      setStr(genRandom(wordList));
+      setResetTrigger((prev) => prev + 1);
+      if (setMode) setMode(dura);
+    } else {
+      if (setTestStart) {
+        setTestStart(false);
+        if (setStr) setStr(genRandom(wordList));
+        setDuration(dura);
+        if (setMode) setMode(dura);
+      }
     }
-    setDuration(dura);
-    if (setMode) setMode(dura);
   };
   return (
     <div>

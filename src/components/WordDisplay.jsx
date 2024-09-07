@@ -182,6 +182,8 @@ export default function WordDisplay({
           setMode={setMode}
           duration={duration}
           setDuration={setDuration}
+          isTestStart={isTestStart}
+          setTestStart={setTestStart}
         />
       )}
       {/* <div className="empty-space"></div> */}
