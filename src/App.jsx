@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Result from "./components/Result";
-import Focus from "./components/Focus";
 import "./App.css";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 export const wordList = [
   "ability",
   "able",
@@ -1968,51 +1969,41 @@ function App() {
   const [testEnd, setTestEnd] = useState(false);
   const [data, setData] = useState([[], [], []]);
   const [resetTrigger, setResetTrigger] = useState(0);
-  console.log(testEnd);
-  console.log(resetTrigger);
+  // console.log(testEnd);
+  // console.log(resetTrigger);
   return (
-    <div className="display-grid">
-      <Header />
-      {testEnd ? (
-        <Result
-          charTyped={charTyped}
-          setCharTyped={setCharTyped}
-          mistakes={mistakes}
-          setMistakes={setMistakes}
-          rawWpm={rawWpm}
-          setRawWpm={setRawWpm}
-          wpm={wpm}
-          setWpm={setWpm}
-          accuracy={accuracy}
-          setAccuracy={setAccuracy}
-          testEnd={testEnd}
-          setTestEnd={setTestEnd}
-          data={data}
-          setData={setData}
-          resetTrigger={resetTrigger}
-          setResetTrigger={setResetTrigger}
-        />
-      ) : (
-        <Focus
-          rawWpm={rawWpm}
-          setRawWpm={setRawWpm}
-          wpm={wpm}
-          setWpm={setWpm}
-          setAccuracy={setAccuracy}
-          testEnd={testEnd}
-          setTestEnd={setTestEnd}
-          charTyped={charTyped}
-          setCharTyped={setCharTyped}
-          mistakes={mistakes}
-          setMistakes={setMistakes}
-          setData={setData}
-          resetTrigger={resetTrigger}
-          setResetTrigger={setResetTrigger}
-        />
-      )}
-
-      <Footer />
-    </div>
+    <Router>
+      <div className="display-grid">
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                wpm={wpm}
+                setWpm={setWpm}
+                rawWpm={rawWpm}
+                setRawWpm={setRawWpm}
+                accuracy={accuracy}
+                setAccuracy={setAccuracy}
+                charTyped={charTyped}
+                setCharTyped={setCharTyped}
+                mistakes={mistakes}
+                setMistakes={setMistakes}
+                testEnd={testEnd}
+                setTestEnd={setTestEnd}
+                data={data}
+                setData={setData}
+                resetTrigger={resetTrigger}
+                setResetTrigger={setResetTrigger}
+              />
+            }
+          />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
