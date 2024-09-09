@@ -153,138 +153,123 @@
   width: 100px;
 }
 
-/* General container and layout */
-.auth-container {
+/* Container for login and signup boxes */
+.login-box {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #2d3748;
-  color: #d1d5db;
-}
-
-.auth-box {
-  display: flex;
+  justify-content: space-between;
+  gap: 160px;
+  padding: 20px;
   width: 100%;
-  max-width: 1024px;
+  max-width: 1000px;
+  margin: auto;
 }
 
-/* Sign Up and Sign In sections */
-.sign-up-section,
-.sign-in-section {
-  width: 50%;
-  padding: 32px;
+.signup-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
 }
 
-.sign-up-section {
-  border-right: 1px solid #4a5568;
+.eye-icon {
+  color: #f0f0f0;
+  background-color: #333333;
 }
 
-/* Titles */
-.auth-title {
-  font-size: 1.5rem;
-  margin-bottom: 24px;
+.register-login-heading {
+  font-size: 24px;
   display: flex;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.icon-margin {
-  margin-right: 8px;
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* Input fields */
-.auth-input {
+.login-input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: 1px solid #333333;
   width: 100%;
-  margin-bottom: 16px;
-  padding: 8px;
-  background-color: #4a5568;
-  border-radius: 8px;
-  color: #e2e8f0;
+  background-color: #333333;
 }
 
-.relative {
+.password-field {
+  display: flex;
+  align-items: center;
   position: relative;
 }
 
-/* Show/Hide Password Button */
-.eye-button {
+.show-password-icon {
   position: absolute;
-  right: 8px;
-  top: 8px;
+  right: 10px;
   background: none;
   border: none;
   cursor: pointer;
-  color: #d1d5db;
 }
 
-/* Submit Buttons */
-.submit-button {
-  width: 100%;
-  background-color: #4a5568;
-  padding: 12px;
-  border-radius: 8px;
+.auth-btn {
+  display: flex;
+  height: 40px;
+  padding: 10px;
+  background-color: #333333;
+  color: #f0f0f0;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  gap: 5px;
 }
 
-.submit-button:hover {
-  background-color: #2d3748;
-}
+.auth-btn:hover {
+  color: #333333;
 
-/* Social Login Buttons */
-.social-login {
+  background-color: #f0f0f0;
+}
+.signin-btn-field {
+  display: grid;
+  flex-direction: row;
+  justify-content: center;
+  justify-content: space-evenly;
+  margin-top: 5px;
+}
+.checkbox-field {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  justify-items: left;
+  height: 20px;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
-.social-button {
-  flex: 1;
-  background-color: #4a5568;
-  padding: 12px;
-  margin: 0 8px;
-  border-radius: 8px;
+.heading-field {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
 }
 
-.social-button:hover {
-  background-color: #2d3748;
+.heading-field > h1 {
+  margin-left: 7px;
 }
 
-/* Or Divider */
-.or-divider {
-  text-align: center;
-  margin-bottom: 16px;
-  color: #a0aec0;
+.empty-line {
+  height: 2px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: #333333;
 }
 
-/* Remember Me Section */
-.remember-me {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.checkbox-margin {
-  margin-right: 8px;
-}
-
-/* Forgot Password */
-.forgot-password {
-  text-align: center;
-  margin-top: 16px;
-}
-
-.forgot-link {
-  font-size: 0.875rem;
-  color: #a0aec0;
-}
-
-.forgot-link:hover {
-  color: #e2e8f0;
+.checkbox-text {
+  margin-left: 8px;
+  font-size: 15px;
 }

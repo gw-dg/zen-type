@@ -1,106 +1,109 @@
-// import React from "react";
-
-// export default function LoginPage() {
-//   return <div>
-
-//   </div>;
-
-// }
 import React, { useState } from "react";
 import { UserPlus, LogIn, Github, Eye, EyeOff } from "lucide-react";
+import { Google } from "@mui/icons-material";
 import "../components/UI.css"; // Import the CSS file
 
 const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordSignUp, setShowPasswordSignUp] = useState(false);
+  const [showVerifyPassword, setShowVerifyPassword] = useState(false);
+  const [showPasswordSignIn, setShowPasswordSignIn] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
-        {/* Sign Up Section */}
-        <div className="sign-up-section">
-          <h2 className="auth-title">
-            <UserPlus className="icon-margin" /> register
-          </h2>
-          <form>
-            <input type="text" placeholder="username" className="auth-input" />
-            <input type="email" placeholder="email" className="auth-input" />
+    <div className="login-box">
+      <div className="signup-box">
+        <div className="heading-field">
+          <UserPlus className="register-login-heading" />
+          <h1 className="register-login-heading">register</h1>
+        </div>
+        <form className="signup-form">
+          <input
+            placeholder="Enter Email"
+            type="text"
+            className="login-input"
+          />
+          <div className="password-field">
             <input
-              type="email"
-              placeholder="verify email"
-              className="auth-input"
+              placeholder="Enter Password"
+              type={showPasswordSignUp ? "text" : "password"}
+              className="login-input"
             />
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="password"
-                className="auth-input"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="eye-button">
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-            <input
-              type="password"
-              placeholder="verify password"
-              className="auth-input mb-6"
-            />
-            <button type="submit" className="submit-button">
-              <UserPlus className="icon-margin" /> sign up
+            <button
+              type="button" // Prevent form submission
+              className="show-password-icon"
+              onClick={() => setShowPasswordSignUp(!showPasswordSignUp)}>
+              {showPasswordSignUp ? (
+                <EyeOff className="eye-icon" />
+              ) : (
+                <Eye className="eye-icon" />
+              )}
             </button>
-          </form>
+          </div>
+          <div className="password-field">
+            <input
+              placeholder="Verify Password"
+              type={showVerifyPassword ? "text" : "password"}
+              className="login-input"
+            />
+            <button
+              type="button" // Prevent form submission
+              className="show-password-icon"
+              onClick={() => setShowVerifyPassword(!showVerifyPassword)}>
+              {showVerifyPassword ? (
+                <EyeOff className="eye-icon" />
+              ) : (
+                <Eye className="eye-icon" />
+              )}
+            </button>
+          </div>
+          <button className="auth-btn">
+            <UserPlus /> register
+          </button>
+        </form>
+      </div>
+      <div className="signup-box">
+        <div className="heading-field">
+          <h1 className="register-login-heading">
+            <LogIn />
+            login
+          </h1>
         </div>
 
-        {/* Sign In Section */}
-        <div className="sign-in-section">
-          <h2 className="auth-title">
-            <LogIn className="icon-margin" /> login
-          </h2>
-          <div className="social-login">
-            <button className="social-button">Google</button>
-            <button className="social-button">
-              <Github className="icon-margin" /> GitHub
+        <button className="auth-btn">
+          <Google /> Sign-In with Google
+        </button>
+        <div className="empty-line"></div>
+        <form className="signup-form">
+          <input
+            placeholder="Enter Email"
+            type="text"
+            className="login-input"
+          />
+          <div className="password-field">
+            <input
+              placeholder="Enter Password"
+              type={showPasswordSignIn ? "text" : "password"}
+              className="login-input"
+            />
+            <button
+              type="button" // Prevent form submission
+              className="show-password-icon"
+              onClick={() => setShowPasswordSignIn(!showPasswordSignIn)}>
+              {showPasswordSignIn ? (
+                <EyeOff className="eye-icon" />
+              ) : (
+                <Eye className="eye-icon" />
+              )}
             </button>
           </div>
-          <div className="or-divider">or</div>
-          <form>
-            <input type="email" placeholder="email" className="auth-input" />
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="password"
-                className="auth-input"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="eye-button">
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-            <div className="remember-me">
-              <input
-                type="checkbox"
-                id="rememberMe"
-                checked={rememberMe}
-                onChange={() => setRememberMe(!rememberMe)}
-                className="checkbox-margin"
-              />
-              <label htmlFor="rememberMe">remember me</label>
-            </div>
-            <button type="submit" className="submit-button">
-              <LogIn className="icon-margin" /> sign in
-            </button>
-          </form>
-          <div className="forgot-password">
-            <a href="#" className="forgot-link">
-              forgot password?
-            </a>
-          </div>
+        </form>
+        <div className="checkbox-field">
+          <input type="checkbox" />
+          <p className="checkbox-text">Remember Me</p>
         </div>
+        <button className="auth-btn">
+          <LogIn /> login
+        </button>
       </div>
     </div>
   );
