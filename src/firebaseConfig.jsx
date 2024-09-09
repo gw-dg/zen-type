@@ -1,7 +1,9 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
+// Import the necessary functions from Firebase SDK
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBLJqotiUpDVacspkBbfBHVayoYt_5LciQ",
   authDomain: "zen-type.firebaseapp.com",
@@ -12,8 +14,11 @@ const firebaseConfig = {
   measurementId: "G-NQF7RT8375",
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
 
-export default { auth, db };
+// Initialize services
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+
+export { auth, db };
