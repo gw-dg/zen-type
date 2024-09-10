@@ -30,7 +30,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
               <User className="icon" />
               <span className="sr-only">Profile</span>
             </Link>
-            {isHovered ? <Dropdown /> : <></>}
+            {isHovered ? <Dropdown setIsLoggedIn={setIsLoggedIn} /> : <></>}
           </div>
         )}
       </div>

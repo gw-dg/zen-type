@@ -1,10 +1,32 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, User } from "lucide-react";
-export default function Dropdown() {
+import { auth } from "../firebaseConfig";
+import { signOut } from "firebase/auth";
+export default function Dropdown({ setIsLoggedIn }) {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/user");
+  };
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setIsLoggedIn(false);
+        navigate("/login");
+      })
+      .catch((err) => {
+        toast.error(ErrorList[err.code] || "Can't log out", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
   };
   return (
     <div className="dropdown">
@@ -14,7 +36,7 @@ export default function Dropdown() {
           Account
         </div>
       </button>
-      <button className="dropdown-btn">
+      <button className="dropdown-btn" onClick={() => handleSignOut()}>
         <div className="dropdown-btn-items">
           <LogOut size={17} />
           Logout
