@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { auth } from "./firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
+import UserStats from "./pages/UserStats";
 
 export const wordList = [
   "ability",
@@ -1975,12 +1983,19 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // console.log(testEnd);
   // console.log(resetTrigger);
+
+  useEffect(() => {
+    const authStatus = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user);
+    });
+  }, []);
+
   return (
     <div>
       <ToastContainer />
       <Router>
         <div className="display-grid">
-          <Header />
+          <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           <Routes>
             <Route
               path="/"
@@ -2010,6 +2025,19 @@ function App() {
               element={
                 isLoggedIn ? (
                   <Navigate to="/" replace />
+                ) : (
+                  <LoginPage
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
+                  />
+                )
+              }
+            />
+            <Route
+              path="/user"
+              element={
+                isLoggedIn ? (
+                  <UserStats />
                 ) : (
                   <LoginPage
                     isLoggedIn={isLoggedIn}

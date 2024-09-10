@@ -273,3 +273,37 @@
   margin-left: 8px;
   font-size: 15px;
 }
+
+.dropdown {
+  position: absolute;
+  width: 150px;
+  top: 100%; /* Position it right below the icon */
+  right: 0; /* Align it to the right of the parent container */
+  border-radius: 10px;
+  background-color: #333333;
+  /* padding: 10px; */
+  z-index: 1000;
+}
+
+.dropdown-btn {
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333333;
+  width: 100%;
+  color: #e2dddd;
+}
+
+.dropdown-btn-items {
+  align-items: center;
+  justify-items: center;
+  padding-left: 5px;
+  display: flex;
+  gap: 5px;
+}
+.dropdown-btn:hover {
+  /* border-radius: 0px; */
+  width: 100%;
+  background-color: #e2dddd;
+  color: #333333;
+}

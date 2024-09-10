@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserPlus, LogIn, Github, Eye, EyeOff } from "lucide-react";
 import { Google } from "@mui/icons-material";
 import "../components/UI.css"; // Import the CSS file
 import { auth } from "../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import ErrorList from "../utils/ErrorList";
 import { Bounce, Slide, toast } from "react-toastify";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
   const [showPasswordSignUp, setShowPasswordSignUp] = useState(false);
@@ -22,12 +25,22 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    const authStatus = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+        navigate("/");
+      }
+    });
+    return () => authStatus();
+  }, [isLoggedIn, navigate]);
   const googleProvider = new GoogleAuthProvider();
   const handleGoogleSignIn = (e) => {
     e.preventDefault();
     signInWithPopup(auth, googleProvider)
       .then((res) => {
-        toast.success("User Created!", {
+        toast.success("Signed in with Google!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
