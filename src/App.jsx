@@ -5,6 +5,9 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const wordList = [
   "ability",
   "able",
@@ -1969,41 +1972,57 @@ function App() {
   const [testEnd, setTestEnd] = useState(false);
   const [data, setData] = useState([[], [], []]);
   const [resetTrigger, setResetTrigger] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // console.log(testEnd);
   // console.log(resetTrigger);
   return (
-    <Router>
-      <div className="display-grid">
-        <Header />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage
-                wpm={wpm}
-                setWpm={setWpm}
-                rawWpm={rawWpm}
-                setRawWpm={setRawWpm}
-                accuracy={accuracy}
-                setAccuracy={setAccuracy}
-                charTyped={charTyped}
-                setCharTyped={setCharTyped}
-                mistakes={mistakes}
-                setMistakes={setMistakes}
-                testEnd={testEnd}
-                setTestEnd={setTestEnd}
-                data={data}
-                setData={setData}
-                resetTrigger={resetTrigger}
-                setResetTrigger={setResetTrigger}
-              />
-            }
-          />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <div>
+      <ToastContainer />
+      <Router>
+        <div className="display-grid">
+          <Header />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  wpm={wpm}
+                  setWpm={setWpm}
+                  rawWpm={rawWpm}
+                  setRawWpm={setRawWpm}
+                  accuracy={accuracy}
+                  setAccuracy={setAccuracy}
+                  charTyped={charTyped}
+                  setCharTyped={setCharTyped}
+                  mistakes={mistakes}
+                  setMistakes={setMistakes}
+                  testEnd={testEnd}
+                  setTestEnd={setTestEnd}
+                  data={data}
+                  setData={setData}
+                  resetTrigger={resetTrigger}
+                  setResetTrigger={setResetTrigger}
+                />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                isLoggedIn ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <LoginPage
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
+                  />
+                )
+              }
+            />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </div>
   );
 }
 

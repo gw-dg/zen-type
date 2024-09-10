@@ -7,8 +7,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import ErrorList from "../utils/ErrorList";
+import { Bounce, Slide, toast } from "react-toastify";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-const LoginPage = () => {
+export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
   const [showPasswordSignUp, setShowPasswordSignUp] = useState(false);
   const [showVerifyPassword, setShowVerifyPassword] = useState(false);
   const [showPasswordSignIn, setShowPasswordSignIn] = useState(false);
@@ -19,48 +22,172 @@ const LoginPage = () => {
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
 
+  const googleProvider = new GoogleAuthProvider();
+  const handleGoogleSignIn = (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, googleProvider)
+      .then((res) => {
+        toast.success("User Created!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      })
+      .catch((err) => {
+        toast.warning(ErrorList[err.code] || "Please try again", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
+  };
+
   const handleSubmitRegister = (e) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     e.preventDefault();
     if (!emailRegister || !verifypasswordRegister || !passwordRegister) {
-      alert("fill all details");
+      toast.warning("Fill all the details!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       return;
     }
     if (passwordRegister !== verifypasswordRegister) {
-      alert("password doesn't match");
+      toast.warning("Password doesn't match!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       return;
     }
     if (!emailRegex.test(emailRegister)) {
-      alert("enter a valid email id");
+      toast.warning("Enter a Valid Email ID!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       return;
     }
     createUserWithEmailAndPassword(auth, emailRegister, passwordRegister)
       .then((res) => {
-        alert("user created");
+        setIsLoggedIn(true);
+        toast.success("User Created!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       })
       .catch((err) => {
-        console.error("Error creating user:", err.message);
-        alert("not able to create user");
+        // console.error("Error creating user:", err.message);
+        toast.error(ErrorList[err.code] || "some unknown error", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       });
   };
   const handleSubmitLogin = (e) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     e.preventDefault();
     if (!emailLogin || !passwordLogin) {
-      alert("fill all details");
+      toast.warning("Fill all the details!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       return;
     }
     if (!emailRegex.test(emailLogin)) {
-      alert("enter a valid email id");
+      toast.warning("Enter a Valid Email ID", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
       return;
     }
     signInWithEmailAndPassword(auth, emailLogin, passwordLogin)
       .then((res) => {
-        alert("signed-in");
+        setIsLoggedIn(true);
+        toast.success("Signed-In", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       })
       .catch((err) => {
-        console.error("Error creating user:", err.message);
-        alert("not able to sign-in");
+        // console.error("Error creating user:", err.message);
+        toast.error(ErrorList[err.code] || "some unknown error", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       });
   };
   return (
@@ -129,7 +256,7 @@ const LoginPage = () => {
           </h1>
         </div>
 
-        <button className="auth-btn">
+        <button className="auth-btn" onClick={(e) => handleGoogleSignIn(e)}>
           <Google /> Sign-In with Google
         </button>
         <div className="empty-line"></div>
@@ -179,6 +306,4 @@ const LoginPage = () => {
       </div>
     </div>
   );
-};
-
-export default LoginPage;
+}
