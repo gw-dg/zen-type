@@ -17,7 +17,7 @@ export default function Dropdown({ setIsLoggedIn }) {
       .catch((err) => {
         toast.error(ErrorList[err.code] || "Can't log out", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

@@ -42,7 +42,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
       .then((res) => {
         toast.success("Signed in with Google!", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -55,7 +55,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
       .catch((err) => {
         toast.warning(ErrorList[err.code] || "Please try again", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -73,7 +73,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
     if (!emailRegister || !verifypasswordRegister || !passwordRegister) {
       toast.warning("Fill all the details!", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -87,7 +87,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
     if (passwordRegister !== verifypasswordRegister) {
       toast.warning("Password doesn't match!", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -101,7 +101,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
     if (!emailRegex.test(emailRegister)) {
       toast.warning("Enter a Valid Email ID!", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -117,7 +117,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
         setIsLoggedIn(true);
         toast.success("User Created!", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -131,7 +131,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
         // console.error("Error creating user:", err.message);
         toast.error(ErrorList[err.code] || "some unknown error", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -148,7 +148,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
     if (!emailLogin || !passwordLogin) {
       toast.warning("Fill all the details!", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -162,7 +162,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
     if (!emailRegex.test(emailLogin)) {
       toast.warning("Enter a Valid Email ID", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -178,7 +178,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
         setIsLoggedIn(true);
         toast.success("Signed-In", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -192,7 +192,7 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
         // console.error("Error creating user:", err.message);
         toast.error(ErrorList[err.code] || "some unknown error", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
