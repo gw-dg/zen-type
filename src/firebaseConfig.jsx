@@ -1,7 +1,7 @@
 // Import the necessary functions from Firebase SDK
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 // Firebase configuration
 const firebaseConfig = {

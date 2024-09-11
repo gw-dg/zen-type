@@ -12,10 +12,11 @@ import {
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { auth } from "./firebaseConfig";
+import { auth, db } from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import UserStats from "./pages/UserStats";
-
+import { addDoc, collection } from "firebase/firestore";
+import { Bounce, Slide, toast } from "react-toastify";
 export const wordList = [
   "ability",
   "able",
@@ -1983,6 +1984,40 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // console.log(testEnd);
   // console.log(resetTrigger);
+
+  const pushDataToDB = () => {
+    const userStatsRef = collection(db, "user-stats");
+    const { uid } = auth.currentUser;
+    addDoc(userStatsRef, {
+      wpm: wpm,
+      rawWpm: rawWpm,
+      accuracy: Math.floor(accuracy * 100),
+      mistakes: mistakes,
+      charTyped: charTyped,
+      timeStamp: new Date(),
+      userId: uid,
+    })
+      .then((res) => {})
+      .catch((err) => {
+        toast.error("couldn't push into db", {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
+  };
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      pushDataToDB();
+    }
+  }, [testEnd]);
 
   useEffect(() => {
     const authStatus = onAuthStateChanged(auth, (user) => {
