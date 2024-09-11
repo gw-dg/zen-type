@@ -13,10 +13,12 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { auth, db } from "./firebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import UserStats from "./pages/UserStats";
 import { addDoc, collection } from "firebase/firestore";
 import { Bounce, Slide, toast } from "react-toastify";
+import { CircularProgress } from "@mui/material";
 export const wordList = [
   "ability",
   "able",
@@ -1982,6 +1984,8 @@ function App() {
   const [data, setData] = useState([[], [], []]);
   const [resetTrigger, setResetTrigger] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [user, loading, error] = useAuthState(auth);
   // console.log(testEnd);
   // console.log(resetTrigger);
 
@@ -2024,7 +2028,9 @@ function App() {
       setIsLoggedIn(!!user);
     });
   }, []);
-
+  if (loading) {
+    return <CircularProgress />;
+  }
   return (
     <div>
       <ToastContainer />
@@ -2064,6 +2070,8 @@ function App() {
                   <LoginPage
                     isLoggedIn={isLoggedIn}
                     setIsLoggedIn={setIsLoggedIn}
+                    userName={userName}
+                    setUserName={setUserName}
                   />
                 )
               }
@@ -2077,6 +2085,8 @@ function App() {
                   <LoginPage
                     isLoggedIn={isLoggedIn}
                     setIsLoggedIn={setIsLoggedIn}
+                    userName={userName}
+                    setUserName={setUserName}
                   />
                 )
               }

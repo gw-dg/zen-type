@@ -309,3 +309,7 @@
   color: #333333;
   cursor: pointer;
 }
+
+.table-head {
+  color: #e2dddd;
+}

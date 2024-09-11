@@ -14,7 +14,13 @@ import ErrorList from "../utils/ErrorList";
 import { Bounce, Slide, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
+export default function LoginPage({
+  isLoggedIn,
+  setIsLoggedIn,
+  userName,
+  setUserName,
+}) {
+  // const [userName, setUserName] = useState("");
   const [showPasswordSignUp, setShowPasswordSignUp] = useState(false);
   const [showVerifyPassword, setShowVerifyPassword] = useState(false);
   const [showPasswordSignIn, setShowPasswordSignIn] = useState(false);
@@ -211,6 +217,13 @@ export default function LoginPage({ isLoggedIn, setIsLoggedIn }) {
           <h1 className="register-login-heading">register</h1>
         </div>
         <form className="signup-form">
+          <input
+            placeholder="Enter Username"
+            type="text"
+            className="login-input"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
           <input
             placeholder="Enter Email"
             type="text"

@@ -4,6 +4,14 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebaseConfig"; // Import the correct Firestore instance (db)
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  TableHead,
+} from "@mui/material";
 
 export default function UserStats() {
   const [data, setData] = useState([]);
@@ -40,9 +48,47 @@ export default function UserStats() {
   }
 
   return (
-    <div>
-      <h1>User Stats</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+    <div className="table">
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell sx={{ color: "#e2dddd", fontWeight: "bold" }}>
+              WPM
+            </TableCell>
+            <TableCell sx={{ color: "#e2dddd", fontWeight: "bold" }}>
+              Raw WPM
+            </TableCell>
+            <TableCell sx={{ color: "#e2dddd", fontWeight: "bold" }}>
+              Accuracy
+            </TableCell>
+            <TableCell sx={{ color: "#e2dddd", fontWeight: "bold" }}>
+              Mistakes
+            </TableCell>
+            <TableCell sx={{ color: "#e2dddd", fontWeight: "bold" }}>
+              Characters Typed
+            </TableCell>
+            <TableCell sx={{ color: "#e2dddd", fontWeight: "bold" }}>
+              Date
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((d) => {
+            return (
+              <TableRow key={d.timeStamp}>
+                <TableCell sx={{ color: "#f0f0f0" }}>{d.wpm}</TableCell>
+                <TableCell sx={{ color: "#f0f0f0" }}>{d.rawWpm}</TableCell>
+                <TableCell sx={{ color: "#f0f0f0" }}>{d.accuracy}</TableCell>
+                <TableCell sx={{ color: "#f0f0f0" }}>{d.mistakes}</TableCell>
+                <TableCell sx={{ color: "#f0f0f0" }}>{d.charTyped}</TableCell>
+                <TableCell sx={{ color: "#f0f0f0" }}>
+                  {d.timeStamp.toDate().toLocaleString()}
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
     </div>
   );
 }
